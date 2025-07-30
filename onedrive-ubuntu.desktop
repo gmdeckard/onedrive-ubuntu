@@ -1,0 +1,14 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=OneDrive Ubuntu Client
+Comment=Synchronize files with Microsoft OneDrive
+Exec=onedrive-ubuntu
+Icon=onedrive-ubuntu
+Terminal=false
+StartupNotify=true
+NoDisplay=false
+Categories=Network;FileTransfer;Office;Utility;
+MimeType=application/onedrive;
+StartupWMClass=onedrive-ubuntu
+Keywords=OneDrive;Microsoft;Sync;Cloud;Files;

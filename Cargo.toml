@@ -1,0 +1,101 @@
+[package]
+name = "onedrive-ubuntu"
+version = "1.0.0"
+edition = "2021"
+authors = ["OneDrive Ubuntu Team <team@onedrive-ubuntu.org>"]
+description = "A modern, secure OneDrive synchronization client for Ubuntu Linux with GUI interface"
+homepage = "https://github.com/gmdeckard/onedrive-ubuntu"
+repository = "https://github.com/gmdeckard/onedrive-ubuntu"
+license = "MIT"
+readme = "README.md"
+keywords = ["onedrive", "sync", "ubuntu", "microsoft", "gui"]
+categories = ["filesystem", "network-programming", "gui"]
+exclude = [
+    "target/",
+    ".git/",
+    "*.deb",
+    "debug.log",
+    ".DS_Store"
+]
+
+[[bin]]
+name = "onedrive-ubuntu"
+path = "src/main.rs"
+
+[dependencies]
+# HTTP client and async runtime
+tokio = { version = "1.0", features = ["full"] }
+reqwest = { version = "0.11", features = ["json", "stream"] }
+
+# Cryptography and hashing
+sha2 = "0.10"
+hex = "0.4"
+
+# Process management
+ctrlc = "3.4"
+
+# Date/time handling
+chrono = { version = "0.4", features = ["serde"] }
+
+# System directories
+dirs = "5.0"
+
+# GUI framework
+eframe = "0.27"
+egui = "0.27"
+
+# System tray integration
+tray-icon = "0.14"
+image = "0.24"
+
+# Authentication and OAuth
+oauth2 = "4.4"
+url = "2.4"
+urlencoding = "2.1"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# Configuration and data storage
+toml = "0.8"
+rusqlite = { version = "0.31", features = ["bundled"] }
+
+# File system operations
+walkdir = "2.4"
+notify = "6.1"
+
+# Logging
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+# Error handling
+anyhow = "1.0"
+thiserror = "1.0"
+
+# Desktop integration
+open = "5.0"
+rfd = "0.14"
+
+[package.metadata.deb]
+maintainer = "OneDrive Ubuntu Team <team@onedrive-ubuntu.org>"
+copyright = "2025, OneDrive Ubuntu Team <team@onedrive-ubuntu.org>"
+license-file = ["LICENSE", "4"]
+extended-description = """A modern, secure OneDrive synchronization client for Ubuntu Linux.
+Features include:
+- Secure OAuth 2.0 authentication with Microsoft Graph API
+- Clean, user-friendly GUI built with Rust and egui
+- Support for both personal and business Microsoft accounts
+- Real-time bidirectional file synchronization
+- System tray integration and autostart support
+- Comprehensive error handling and logging"""
+depends = "$auto, libgtk-3-0, libayatana-appindicator3-1"
+section = "utils"
+priority = "optional"
+assets = [
+    ["target/release/onedrive-ubuntu", "usr/bin/", "755"],
+    ["onedrive-ubuntu.desktop", "usr/share/applications/", "644"],
+    ["onedrive-ubuntu.svg", "usr/share/pixmaps/onedrive-ubuntu.svg", "644"],
+    ["README.md", "usr/share/doc/onedrive-ubuntu/", "644"],
+    ["LICENSE", "usr/share/doc/onedrive-ubuntu/", "644"],
+    ["INSTALL.md", "usr/share/doc/onedrive-ubuntu/", "644"],
+]
+conf-files = []
