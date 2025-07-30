@@ -231,7 +231,7 @@ impl SyncManager {
             status.sync_progress = 0.4;
         }).await;
         
-        let stored_files = self.get_stored_files()?;
+        let stored_files = self.get_stored_files().await?;
         info!("=== DATABASE SCAN COMPLETE: {} files ===", stored_files.len());
 
         // Step 4: Determine sync actions
@@ -386,15 +386,13 @@ impl SyncManager {
         })
     }
 
-    fn get_stored_files(&self) -> Result<HashMap<String, FileRecord>> {
-        let rt = tokio::runtime::Handle::current();
-        rt.block_on(async {
-            let db = self.db.lock().await;
-            let mut files = HashMap::new();
-            
-            let mut stmt = db.prepare(
-                "SELECT path, hash, size, modified, onedrive_id, last_synced FROM files"
-            )?;
+    async fn get_stored_files(&self) -> Result<HashMap<String, FileRecord>> {
+        let db = self.db.lock().await;
+        let mut files = HashMap::new();
+        
+        let mut stmt = db.prepare(
+            "SELECT path, hash, size, modified, onedrive_id, last_synced FROM files"
+        )?;
 
             let file_iter = stmt.query_map([], |row| {
                 Ok(FileRecord {
@@ -413,7 +411,6 @@ impl SyncManager {
             }
 
             Ok(files)
-        })
     }
 
     fn determine_sync_actions(
