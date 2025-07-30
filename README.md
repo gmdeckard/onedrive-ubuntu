@@ -104,6 +104,7 @@ A modern, secure OneDrive synchronization client for Ubuntu Linux with GUI inter
      - `Files.ReadWrite` - Read and write access to user files
      - `Files.ReadWrite.All` - Read and write access to all files user can access
      - `User.Read` - Sign in and read user profile
+     - `offline_access` - Maintain access to data you have given it access to
    - Click "Add permissions"
 
 3. **Grant Admin Consent** (if using business account):
@@ -268,6 +269,7 @@ debug_logging = false
   - `Files.ReadWrite`
   - `Files.ReadWrite.All` 
   - `User.Read`
+  - `offline_access`
 - For business accounts, ensure admin consent is granted
 
 **"Browser doesn't open"**:
